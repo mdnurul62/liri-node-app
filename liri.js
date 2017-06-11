@@ -1,15 +1,30 @@
-//node liri.js my-tweets
-//node liri.js spotify-this-song '<song name here>'
-//node liri.js movie-this '<movie name here>'
-//node liri.js do-what-it-says
 
-
+console.log("Link test")
 var fs = require('fs')
 
+var Twitter = require('twitter');
 var keys = require('./keys.js');
-var twitter = require('twitter');
-var client = new twitter(keys.twitterKeys)
+var client = new Twitter(keys);
+//console.log(T);
 
+var params = {
+		q: 'nurulcode',
+	count: 2
+	}
+	//search twitter for all tweets of nurulcode
+	client.get('search/tweets', params, callback); 
+
+	function callback(err, data, response) {
+			//console.log(data);
+			var tweets = data.statuses;
+			for (var i = 0; i < tweets.length; i++) {
+				console.log(tweets[i].text)
+			}
+	}
+
+
+
+/*
 //Two arguments, first one is user command and second agr is user choice to pick
 var userComm = process.argv[2];
 var userChoice = process.argv[3];
@@ -37,10 +52,22 @@ switch (userComm) {
 
 //Call tweets function
 
-
+*/
+/*
 function fetchTwitter() {
-	var params = {screen_name: 'bootcampcoder'}
-	keys.get('statuses/user_timeline', 20, function(error, data) {
+	var params = {
+		q: 'rainbow',
+	count: 2
+	}
+
+	client.get('search/tweets', params, gotData); 
+
+	function gotData(err, data, response) {
+			console.log(data);
+	}
+}
+*/		
+/*
 		if (error) {
 			return console.log(error);
 		} 
@@ -52,3 +79,4 @@ function fetchTwitter() {
 		})
 	};
 
+*/
