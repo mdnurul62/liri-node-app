@@ -1,0 +1,2 @@
+OMDb API: http://www.omdbapi.com/?i=tt3896198&apikey=40e9cece
+Poster API: http://img.omdbapi.com/?i=tt3896198&h=600&apikey=40e9cece
