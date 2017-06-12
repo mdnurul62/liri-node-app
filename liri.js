@@ -1,4 +1,3 @@
-
 //console.log("Link test")
 
 var fs = require('fs');
@@ -102,6 +101,7 @@ function fetchMovie(){
 		var movieName = "Mr. Nobody";
 		console.log(movieName);
 	} else {
+		var movieName = '';
 		var requestURL = "http://www.omdbapi.com/?t=" + movieName + "&tomatoes=true&y=&plot=short&r=json";
 		request(requestURL, callback);
 	}
@@ -110,9 +110,6 @@ function fetchMovie(){
 		if (err) {
 			console.log('Error occurred' + err)
 		} else {
-
-		
-
 			console.log("---------------------------------------------");
 			console.log("The movie's title is: " + JSON.parse(data)["Title"]);
 			console.log("The movie's release year is: " + JSON.parse(data)["Year"]);		
@@ -123,33 +120,25 @@ function fetchMovie(){
 			console.log("The movie's actors: " + JSON.parse(data)["Actors"]);
 			console.log("The movie's Rotten Tomatoes Rating: " + JSON.parse(data)["tomatoRating"]);
 			console.log("The movie's Rotten Tomatoes URL: " + JSON.parse(data)["tomatoURL"]);
+			console.log("-----------------------------------------------");
 		}
 	};
-
+	
+//Call random function
 function fetchRandom(){
-	//LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
-	//Runs `spotify-this-song` for "I Want it That Way," as follows the text in `random.txt`.
-	fs.readFile("random.txt", 'utf8', function(err, data){
+	var fileName = require('./random.txt');
+	fs.readFile(fileName, 'utf8', function(err, fileContents){
+		if (err) {
+			return console.log(err)
+		} else {
+			console.log(fileContents.split(','));
+			var dataArr = data.split(',');
+			var randomUserCom = dataArr[0];
+			var randomUserSearch = dataArr[1];
 
-		// console.log(data);
-
-		//Creating an array from a string with split()
-		//Every comma, push the element into the array
-		var dataArr = data.split(',');
-
-		// console.log(dataArr);
-
-		var randomUserCommand = dataArr[0];
-		var randomArtName = dataArr[1];
-
-		console.log("You requested to " + "<" + randomUserCommand + "> with " + randomArtName);
-		appendFile("You requested to " + "<" + randomUserCommand + "> with " + randomArtName);
-
-		//Remove the quotes before making a request
-		randomArtName = randomArtName.replace(/^"(.*)"$/, '$1');
-
-		doNext(randomUserCommand, randomArtName);
-	})
+			console.log("You requested to " + "<" + randomUserCom + "> with " + randomUserSearch);
+			appendFile("You requested to " + "<" + randomUserCom + "> with " + randomUserSearch);
+		}
+	});
 };
-
 
