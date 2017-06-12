@@ -8,13 +8,13 @@ var keys = require('./keys.js');
 var client = new Twitter(keys);
 var spotify = require('spotify');
 
-//Two arguments, first one is user command and second agr is user choice to pick
+//Two arguments, first one is user command and second agr is user search to pick the choice.
 var userCom = process.argv[2];
 var userSearch = process.argv[3];
 
 //User commands: 'my-tweets', 'soptify-this-song', 'movie-this', 'do-what-it-says'.
-//User searches:'song name', 'movie name'
-//Create switch-case statement for user command
+//User searches:'<song name>', '<movie name>'
+//switch-case statement for user command
 
 switch (userCom) {
 	case 'my-tweets':
@@ -66,26 +66,28 @@ function fetchSpotify() {
 		}
 
 	if (userSearch === 'undefined') {
-		fs.readFile('./random.txt', 'utf8', function(err, data) {
+		var fileName = require('./random.txt')
+		fs.readFile(fileName, 'utf8', function(err, fileContents) {
 			if (err) {
 				return console.log(err);
 			}
-
+			console.log(fileContents.split(','));
+		} 
+	} else {
 		spotify.search(searchObj, callback);
-
-			function callback(err, data) {
-				if (err) {
-					console.log('Error occurred: ' + err);
-					return;
-				}
-				return console.log('Tracks: ' + data.tracks[0]);
-				return console.log('Artist: ' + data.tracks[0].artist[0]);
-				return console.log('Album: ' + data.tracks[0].album);
-				return console.log('Spottify link: ' + data.tracks[0].external_url.spotify);
-			}
-		})
 	}
-};
+
+		function callback(err, data) {
+			if (err) {
+				console.log('Error occurred: ' + err);
+				return;
+			} else {
+				console.log('Tracks: ' + data.tracks[0]);
+				console.log('Artist: ' + data.tracks[0].artist[0]);
+				console.log('Album: ' + data.tracks[0].album);
+				console.log('Spottify link: ' + data.tracks[0].external_url.spotify);
+			}
+		};
 
 
 
@@ -115,8 +117,8 @@ function fetchOMDB(movieName){
 		console.log("The movie's Rotten Tomatoes Rating: " + JSON.parse(data)["tomatoRating"]);
 		console.log("The movie's Rotten Tomatoes URL: " + JSON.parse(data)["tomatoURL"]);
 
-	});
-}
+	})
+};
 
 function fetchRandom(){
 	//LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
@@ -141,7 +143,7 @@ function fetchRandom(){
 		randomArtName = randomArtName.replace(/^"(.*)"$/, '$1');
 
 		doNext(randomUserCommand, randomArtName);
-	});
+	})
 };
 
 
