@@ -34,7 +34,7 @@ switch (userCom) {
 		break;
 };
 
-//Call functions
+//Call twitter functions
 
 function fetchTwitter() {
 	
@@ -59,6 +59,7 @@ function fetchTwitter() {
 
 };
 
+//Call spotify function
 function fetchSpotify() {
 	var searchObj = {
 			type: 'track',
@@ -70,12 +71,15 @@ function fetchSpotify() {
 		fs.readFile(fileName, 'utf8', function(err, fileContents) {
 			if (err) {
 				return console.log(err);
-			}
+			} else {
 			console.log(fileContents.split(','));
-		} 
+			} 
+
+		});
+
 	} else {
-		spotify.search(searchObj, callback);
-	}
+			spotify.search(searchObj, callback);
+		}
 
 		function callback(err, data) {
 			if (err) {
@@ -88,37 +92,39 @@ function fetchSpotify() {
 				console.log('Spottify link: ' + data.tracks[0].external_url.spotify);
 			}
 		};
+	
 
+//Call movie function
 
-
-
-function fetchOMDB(movieName){
+function fetchMovie(){
 	//If a movie was not typed it, default to the movie Mr. Nobody
 	if (userSearch === null){
-		movieName = "Mr. Nobody";
+		var movieName = "Mr. Nobody";
+		console.log(movieName);
+	} else {
+		var requestURL = "http://www.omdbapi.com/?t=" + movieName + "&tomatoes=true&y=&plot=short&r=json";
+		request(requestURL, callback);
 	}
 
-	var requestURL = "http://www.omdbapi.com/?t=" + movieName + "&tomatoes=true&y=&plot=short&r=json";
+	function callback(err, data) {
+		if (err) {
+			console.log('Error occurred' + err)
+		} else {
 
-	request(requestURL, function (error, response, data){
+		
 
-		//200 response means that the page has been found and a response was received.
-		if (!error && response.statusCode == 200){
-			console.log("Everything working fine.");
+			console.log("---------------------------------------------");
+			console.log("The movie's title is: " + JSON.parse(data)["Title"]);
+			console.log("The movie's release year is: " + JSON.parse(data)["Year"]);		
+			console.log("The movie's rating is: " + JSON.parse(data)["imdbRating"]);
+			console.log("The movie's was produced in: " + JSON.parse(data)["Country"]);
+			console.log("The movie's language is: " + JSON.parse(data)["Language"]);
+			console.log("The movie's plot: " + JSON.parse(data)["Plot"]);
+			console.log("The movie's actors: " + JSON.parse(data)["Actors"]);
+			console.log("The movie's Rotten Tomatoes Rating: " + JSON.parse(data)["tomatoRating"]);
+			console.log("The movie's Rotten Tomatoes URL: " + JSON.parse(data)["tomatoURL"]);
 		}
-		console.log("---------------------------------------------");
-		console.log("The movie's title is: " + JSON.parse(data)["Title"]);
-		console.log("The movie's release year is: " + JSON.parse(data)["Year"]);		
-		console.log("The movie's rating is: " + JSON.parse(data)["imdbRating"]);
-		console.log("The movie's was produced in: " + JSON.parse(data)["Country"]);
-		console.log("The movie's language is: " + JSON.parse(data)["Language"]);
-		console.log("The movie's plot: " + JSON.parse(data)["Plot"]);
-		console.log("The movie's actors: " + JSON.parse(data)["Actors"]);
-		console.log("The movie's Rotten Tomatoes Rating: " + JSON.parse(data)["tomatoRating"]);
-		console.log("The movie's Rotten Tomatoes URL: " + JSON.parse(data)["tomatoURL"]);
-
-	})
-};
+	};
 
 function fetchRandom(){
 	//LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
