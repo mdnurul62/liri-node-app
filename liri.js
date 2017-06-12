@@ -54,6 +54,45 @@ if (userCom === 'soptify-this-song' && song === 'undefined') {
 			};
 		})
 }
+
+
+function fetchOMDB(movieName){
+	//If a movie was not typed it, default to the movie Mr. Nobody
+	if (artName == null){
+		movieName = "Mr. Nobody";
+	}
+
+	var requestURL = "http://www.omdbapi.com/?t=" + movieName + "&tomatoes=true&y=&plot=short&r=json";
+
+	request(requestURL, function (error, response, data){
+
+		//200 response means that the page has been found and a response was received.
+		if (!error && response.statusCode == 200){
+			console.log("Everything working fine.");
+		}
+		console.log("---------------------------------------------");
+		console.log("The movie's title is: " + JSON.parse(data)["Title"]);
+		console.log("The movie's release year is: " + JSON.parse(data)["Year"]);		
+		console.log("The movie's rating is: " + JSON.parse(data)["imdbRating"]);
+		console.log("The movie's was produced in: " + JSON.parse(data)["Country"]);
+		console.log("The movie's language is: " + JSON.parse(data)["Language"]);
+		console.log("The movie's plot: " + JSON.parse(data)["Plot"]);
+		console.log("The movie's actors: " + JSON.parse(data)["Actors"]);
+		console.log("The movie's Rotten Tomatoes Rating: " + JSON.parse(data)["tomatoRating"]);
+		console.log("The movie's Rotten Tomatoes URL: " + JSON.parse(data)["tomatoURL"]);
+
+		appendFile("---------------------------------------------");
+		appendFile("The movie's title is: " + JSON.parse(data)["Title"]);
+		appendFile("The movie's release year is: " + JSON.parse(data)["Year"]);		
+		appendFile("The movie's rating is: " + JSON.parse(data)["imdbRating"]);
+		appendFile("The movie's was produced in: " + JSON.parse(data)["Country"]);
+		appendFile("The movie's language is: " + JSON.parse(data)["Language"]);
+		appendFile("The movie's plot: " + JSON.parse(data)["Plot"]);
+		appendFile("The movie's actors: " + JSON.parse(data)["Actors"]);
+		appendFile("The movie's Rotten Tomatoes Rating: " + JSON.parse(data)["tomatoRating"]);
+		appendFile("The movie's Rotten Tomatoes URL: " + JSON.parse(data)["tomatoURL"]);											
+	});
+}
 /*
 //Two arguments, first one is user command and second agr is user choice to pick
 var userComm = process.argv[2];
