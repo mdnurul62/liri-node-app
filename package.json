@@ -13,7 +13,7 @@
   "author": "Nurul",
   "license": "ISC",
   "dependencies": {
-    "twit": "^2.2.5",
+    "spotify": "^0.3.0",
     "twitter": "^1.7.0"
   }
 }

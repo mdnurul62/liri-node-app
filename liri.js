@@ -1,6 +1,7 @@
 
-console.log("Link test")
-var fs = require('fs')
+//console.log("Link test")
+
+var fs = require('fs');
 
 var Twitter = require('twitter');
 var keys = require('./keys.js');
@@ -11,8 +12,9 @@ var params = {
 		q: 'nurulcode',
 	count: 2
 	}
-	//search twitter for all tweets of nurulcode
-	client.get('search/tweets', params, callback); 
+
+//search twitter for all tweets of nurulcode
+client.get('search/tweets', params, callback); 
 
 	function callback(err, data, response) {
 			//console.log(data);
@@ -23,7 +25,35 @@ var params = {
 	}
 
 
+//npm package install for spotify
+var spotify = require('spotify');
+var userCom = process.argv[2]
+var song = process.argv[3];
+var searchObj = {
+	type: 'track',
+	query: "songName"
+}
 
+if (userCom === 'soptify-this-song' && song === 'undefined') {
+	fs.readFile('./random.txt', 'utf8', function(err, data) {
+		if (err) {
+			return console.log(err);
+		}
+
+		spotify.search(searchObj, callback);
+
+			function callback(err, data) {
+				if (err) {
+					console.log('Error occurred: ' + err);
+					return;
+				}
+				return console.log('Tracks: ' + data.tracks[0]);
+				return console.log('Artist: ' + data.tracks[0].artist[0]);
+				return console.log('Album: ' + data.tracks[0].album);
+				return console.log('Spottify link: ' + data.tracks[0].external_url.spotify);
+			};
+		})
+}
 /*
 //Two arguments, first one is user command and second agr is user choice to pick
 var userComm = process.argv[2];
