@@ -1,8 +1,0 @@
-OMDb API: http://www.omdbapi.com/?i=tt3896198&apikey=40e9cece
-Poster API: http://img.omdbapi.com/?i=tt3896198&h=600&apikey=40e9cece
-
-//For your LIRI Bot homework assignment, you will need to use the above OMDB key. Create a dummy Twitter account; do not use your own. You are not expected to get the Spotify component working, as this API has recently changed.
-
-//If you need a dummy Twitter account to use: 
-@bootcampcoder
-password: CodingRocksAJ16
