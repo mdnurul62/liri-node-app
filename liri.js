@@ -6,6 +6,7 @@ var Twitter = require('twitter');
 var keys = require('./keys.js');
 var client = new Twitter(keys);
 var spotify = require('spotify');
+var request = require('request');
 
 //Two arguments, first one is user command and second agr is user search to pick the choice.
 var userCom = process.argv[2];
