@@ -118,4 +118,30 @@ function fetchOMDB(movieName){
 	});
 }
 
+function fetchRandom(){
+	//LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
+	//Runs `spotify-this-song` for "I Want it That Way," as follows the text in `random.txt`.
+	fs.readFile("random.txt", 'utf8', function(err, data){
+
+		// console.log(data);
+
+		//Creating an array from a string with split()
+		//Every comma, push the element into the array
+		var dataArr = data.split(',');
+
+		// console.log(dataArr);
+
+		var randomUserCommand = dataArr[0];
+		var randomArtName = dataArr[1];
+
+		console.log("You requested to " + "<" + randomUserCommand + "> with " + randomArtName);
+		appendFile("You requested to " + "<" + randomUserCommand + "> with " + randomArtName);
+
+		//Remove the quotes before making a request
+		randomArtName = randomArtName.replace(/^"(.*)"$/, '$1');
+
+		doNext(randomUserCommand, randomArtName);
+	});
+};
+
 
