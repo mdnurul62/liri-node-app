@@ -128,16 +128,17 @@ function fetchMovie(){
 //Call random function
 function fetchRandom(){
 	var fileName = require('./random.txt');
-	fs.readFile(fileName, 'utf8', function(err, data){
+	fs.readFile(fileName, 'utf8', function(err, fileContents){
 		if (err) {
 			return console.log(err)
 		} else {
-			var dataArr = data.split(',');
-			var randomUserCom = dataArr[0];
-			var randomUserSearch = dataArr[1];
+			console.log(fileContents);
+			//var dataArr = data.split(',');
+			//var randomUserCom = dataArr[0];
+			//var randomUserSearch = dataArr[1];
 
-			console.log("You requested to " + "<" + randomUserCom + "> with " + randomUserSearch);
-			appendFile("You requested to " + "<" + randomUserCom + "> with " + randomUserSearch);
+			//console.log("You requested to " + "<" + randomUserCom + "> with " + randomUserSearch);
+			//appendFile("You requested to " + "<" + randomUserCom + "> with " + randomUserSearch);
 		}
 	});
 };
