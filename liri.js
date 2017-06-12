@@ -6,6 +6,7 @@ var Twitter = require('twitter');
 var keys = require('./keys.js');
 var client = new Twitter(keys);
 var spotify = require('spotify');
+var request = require('request');
 
 //Two arguments, first one is user command and second agr is user search to pick the choice.
 var userCom = process.argv[2];
@@ -92,7 +93,7 @@ function fetchSpotify() {
 			}
 		};
 	
-
+};
 //Call movie function
 
 function fetchMovie(){
@@ -123,15 +124,14 @@ function fetchMovie(){
 			console.log("-----------------------------------------------");
 		}
 	};
-	
+};
 //Call random function
 function fetchRandom(){
 	var fileName = require('./random.txt');
-	fs.readFile(fileName, 'utf8', function(err, fileContents){
+	fs.readFile(fileName, 'utf8', function(err, data){
 		if (err) {
 			return console.log(err)
 		} else {
-			console.log(fileContents.split(','));
 			var dataArr = data.split(',');
 			var randomUserCom = dataArr[0];
 			var randomUserSearch = dataArr[1];
@@ -141,4 +141,3 @@ function fetchRandom(){
 		}
 	});
 };
-
