@@ -92,7 +92,7 @@ function fetchSpotify() {
 			}
 		};
 	
-
+};
 //Call movie function
 
 function fetchMovie(){
@@ -123,15 +123,14 @@ function fetchMovie(){
 			console.log("-----------------------------------------------");
 		}
 	};
-	
+};
 //Call random function
 function fetchRandom(){
 	var fileName = require('./random.txt');
-	fs.readFile(fileName, 'utf8', function(err, fileContents){
+	fs.readFile(fileName, 'utf8', function(err, data){
 		if (err) {
 			return console.log(err)
 		} else {
-			console.log(fileContents.split(','));
 			var dataArr = data.split(',');
 			var randomUserCom = dataArr[0];
 			var randomUserSearch = dataArr[1];
@@ -141,4 +140,3 @@ function fetchRandom(){
 		}
 	});
 };
-
