@@ -15,6 +15,31 @@ var userSearch = process.argv[3];
 //User commands: 'my-tweets', 'soptify-this-song', 'movie-this', 'do-what-it-says'.
 //User searches:'<song name>', '<movie name>'
 
+
+//switch-case statement for user command
+function switchCase() {
+	switch (userCom) {
+		case 'my-tweets':
+			fetchTwitter();
+			break;
+
+		case 'soptify-this-song':
+			fetchSpotify();
+			break;
+
+		case 'movie-this':
+			fetchMovie();
+			break;
+
+		case 'do-what-it-says':
+			fetchRandom();
+			break;
+	}
+};
+
+switchCase();
+
+
 //Call twitter functions
 
 function fetchTwitter() {
@@ -136,26 +161,3 @@ function fetchRandom(){
 	});
 };
 
-
-//switch-case statement for user command
-function switchCase() {
-	switch (userCom) {
-		case 'my-tweets':
-			fetchTwitter();
-			break;
-
-		case 'soptify-this-song':
-			fetchSpotify();
-			break;
-
-		case 'movie-this':
-			fetchMovie();
-			break;
-
-		case 'do-what-it-says':
-			fetchRandom();
-			break;
-	}
-};
-
-switchCase();
