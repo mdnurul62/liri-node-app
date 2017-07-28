@@ -43,27 +43,31 @@ switchCase();
 //Call twitter functions
 
 function fetchTwitter() {
-	
-	var params = {
+	if (userSearch) {
+		
+			var params = {
 			q: 'nurulcode',
 			count: 2
 		}
 
-	//search all tweets of nurulcode
-	client.get('search/tweets', params, callback); 
+			//search all tweets of nurulcode
+			client.get('search/tweets', params, callback); 
 
-		function callback(err, data, response) {
-			//console.log(data);
-			if (err) {
-				return console.log(err)
+				function callback(err, data, response) {
+					//console.log(data);
+					if (err) {
+						return console.log(err)
+					}
+					var tweets = data.statuses;
+					for (var i = 0; i < tweets.length; i++) {
+						console.log(tweets[i].text)
+					}
+				}
 			}
-			var tweets = data.statuses;
-			for (var i = 0; i < tweets.length; i++) {
-				console.log(tweets[i].text)
-			}
-		}
+		};
 
-};
+
+fetchTwitter();
 
 //Call spotify function
 function fetchSpotify() {
@@ -100,37 +104,48 @@ function fetchSpotify() {
 	
 //Call movie function
 
-function fetchMovie(){
+function fetchMovie(userSearch){
 	//If a movie was not typed it, default to the movie Mr. Nobody
 	if (userSearch === null){
-		var movieName = "Mr. Nobody";
+		var movieName = "";
 		console.log(movieName);
 	} else {
-		//var movieName = '';
-		var requestURL = "http://www.omdbapi.com/?t=" + userSearch + "&tomatoes=true&y=&plot=short&r=json";
-		request(requestURL, callback);
+		var movieName = '';
+		var requestUrl = "http://www.omdbapi.com/?t=" + movieName + "&apikey=40e9cece";
+
+		request(requestUrl, function(error, response, body) {
+			if (!error && response.statusCode === 200) {
+
+			}
+		});
 	}
 
-	function callback(err, data) {
+	function callback(err, response, data) {
 		if (err) {
 			console.log('Error occurred' + err)
 		} else {
+
+			const json = JSON.parse(body);
+
 			console.log("---------------------------------------------");
 			console.log("\nMy Movie: ");
-	   		console.log("\nTitle: " + JSON.stringify(data).Title);
-	   		console.log("Year: " + JSON.stringify(data).Year);
-	   		console.log("Rated: " + JSON.stringify(data).Rated);
-	   		console.log("Country: " + JSON.stringify(data).Country);
-	   		console.log("Language: " + JSON.stringify(data).Language);
-	   		console.log("Plot: " + JSON.stringify(data).Plot);
-	   		console.log("Actors: " + JSON.stringify(data).Actors);
-	   		console.log("Rotten Tomatoes: " + JSON.stringify(data).Value);
+	   		console.log("\nTitle: " + json.Title);
+	   		console.log("Year: " + json.Year);
+	   		console.log("Rated: " + json.imdbRating);
+	   		console.log("Country: " + json.Country);
+	   		console.log("Language: " + json.Language);
+	   		console.log("Plot: " + json.Plot);
+	   		console.log("Actors: " + json.Actors);
+	   		console.log("Rotten Tomatoes: " + json.Value);
 	   		console.log("URL: https://www.rottentomatoes.com/search/?search=" + userSearch);
 			console.log("-----------------------------------------------");
+			console.log(data)
 		
 		}
 	}
 };
+
+fetchMovie();
 
 //Call random function
 function fetchRandom(){
